@@ -53,8 +53,6 @@ import ContactInfoForm from './ContactInfoFrom.vue'
 export default {
   name: 'CreateCompany',
   components: {
-    // vSelect,
-    // // BInputGroupAppend,
     CompanyInfoForm,
     // ValidationProvider,
     ContactInfoForm,
