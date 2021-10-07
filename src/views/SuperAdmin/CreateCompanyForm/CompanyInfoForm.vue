@@ -48,7 +48,7 @@
               #default="{ errors }"
               name="Username"
               vid="vi-username"
-              rules="required"
+              rules="required|email"
             >
               <b-input-group class="input-group-merge">
                 <b-input-group-prepend is-text>
@@ -241,7 +241,7 @@
 import { ValidationProvider } from 'vee-validate'
 import { togglePasswordVisibility } from '@core/mixins/ui/forms'
 import vSelect from 'vue-select'
-import { required } from '@validations'
+import { required, email } from '@validations'
 import {
   BCard, BCol, BRow, BFormGroup, BFormInput, BInputGroup, BInputGroupPrepend, BCardTitle, BInputGroupAppend,
 } from 'bootstrap-vue'
@@ -252,18 +252,19 @@ export default {
   },
   mixins: [togglePasswordVisibility],
   // eslint-disable-next-line vue/require-prop-types
-  props: ['value', 'errors'],
+  props: ['errors'],
   data() {
     return {
       required,
+      email,
       form1: {
 
       },
       modulesOption: [
-        { title: 'CFM' },
-        { title: 'EPR' },
-        { title: 'LR' },
-        { title: 'RR' },
+        'CFM',
+        'EPR',
+        'LR',
+        'RR',
       ],
     }
   },
@@ -272,12 +273,12 @@ export default {
       return this.passwordFieldType === 'password' ? 'EyeIcon' : 'EyeOffIcon'
     },
   },
-  watch: {
-    value(val) {
-      if (!val) return
-      this.setCurrentValue(val)
-    },
-  },
+  // watch: {
+  //   value(val) {
+  //     if (!val) return
+  //     this.setCurrentValue(val)
+  //   },
+  // },
   methods: {
     handleForm() {
       this.$emit('getform', this.form1)

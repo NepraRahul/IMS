@@ -1,6 +1,13 @@
 <template>
   <div>
-    <div class="text-right mb-1">
+    <div class="d-flex justify-content-between mb-1">
+      <b-button
+        v-ripple.400="'rgba(113, 102, 240, 0.15)'"
+        v-b-toggle.collapse-1
+        variant="outline-primary"
+      >
+        Toggle Collapse
+      </b-button>
       <b-button
         variant="primary"
         @click="redirectToCreate"
@@ -8,6 +15,12 @@
         Create Company
       </b-button>
     </div>
+    <b-collapse
+      id="collapse-1"
+      class="mt-2"
+    >
+      <company-filter />
+    </b-collapse>
     <b-card>
       <b-table
         responsive="sm"
@@ -19,17 +32,23 @@
 
 <script>
 import {
-  BTable, BCard, BButton, /* BCardHeader, BCardBody, */
+  BTable, BCard, BButton, VBToggle, BCollapse, /* BCardHeader, BCardBody, */
 } from 'bootstrap-vue'
+import CompanyFilter from './CompanyFilter.vue'
 
 export default {
   name: 'CreateCompany',
   components: {
     BCard,
     BButton,
+    BCollapse,
+    CompanyFilter,
     // BCardHeader,
     // BCardBody,
     BTable,
+  },
+  directives: {
+    'b-toggle': VBToggle,
   },
   data() {
     return {

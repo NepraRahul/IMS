@@ -27,6 +27,7 @@
                   v-model="form.address_line1"
                   type="text"
                   placeholder="Address Line 1"
+                  @change="handleForm"
                 />
               </b-input-group>
               <small class="text-danger">{{ errors[0] }}</small>
@@ -49,6 +50,7 @@
                 v-model="form.address_line2"
                 type="text"
                 placeholder="Address Line 2"
+                @change="handleForm"
               />
             </b-input-group>
           </b-form-group>
@@ -69,6 +71,7 @@
                 v-model="form.phone_office"
                 type="number"
                 placeholder="Phone Office"
+                @change="handleForm"
               />
             </b-input-group>
           </b-form-group>
@@ -89,6 +92,7 @@
                 v-model="form.phone_resident"
                 type="number"
                 placeholder="Phone (R)"
+                @change="handleForm"
               />
             </b-input-group>
           </b-form-group>
@@ -109,6 +113,7 @@
                 v-model="form.fax"
                 type="text"
                 placeholder="Fax"
+                @change="handleForm"
               />
             </b-input-group>
           </b-form-group>
@@ -128,6 +133,7 @@
                 v-model="form.zip"
                 type="text"
                 placeholder="Zip Code"
+                @change="handleForm"
               />
             </b-input-group>
           </b-form-group>
@@ -149,6 +155,7 @@
                 label="title"
                 placeholder="Select Country"
                 :options="country"
+                @change="handleForm"
               />
             </b-input-group>
           </b-form-group>
@@ -170,6 +177,7 @@
                 label="title"
                 placeholder="Select State"
                 :options="state"
+                @change="handleForm"
               />
             </b-input-group>
           </b-form-group>
@@ -191,6 +199,7 @@
                 label="title"
                 placeholder="Select City"
                 :options="city"
+                @change="handleForm"
               />
             </b-input-group>
           </b-form-group>
@@ -213,6 +222,7 @@
                 multiple
                 placeholder="Select Assigned City"
                 :options="assignCities"
+                @change="handleForm"
               />
             </b-input-group>
           </b-form-group>
@@ -265,6 +275,11 @@ export default {
         { title: 'RR' },
       ],
     }
+  },
+  methods: {
+    handleForm() {
+      this.$emit('getform', this.form)
+    },
   },
 }
 </script>

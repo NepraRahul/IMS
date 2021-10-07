@@ -5,11 +5,41 @@
   >
     <b-form @submit.prevent="createCompany">
       <b-row>
+        <b-col>
+          <custom-input
+            :id="'autosuggest__input_ajax'"
+            :class="'required'"
+            :label="'CustomLabel'"
+            :inputname="'select_chec'"
+            :type="'email'"
+            :placeholder="'namsda'"
+            :rules="''"
+            :value="'2021-10-14 to 2021-10-22'"
+            :crvalue="[{title: 'net', checked: true }, {title: 'abs', checked: false },{title: 'aas', checked: true },{title: 'aaaa', checked: false }]"
+            :crlabel="'NET'"
+            :radioswitch="false"
+            :inline="false"
+            :multiple="false"
+            :options="['CFM',
+                       'EPR',
+                       'LR',
+                       'RR',]"
+            :rows="0"
+            :suggestapi="'https://jsonplaceholder.typicode.com/users'"
+            :enabletime="false"
+            :nocalendar="false"
+            :dateformat="'Y-m-d'"
+            :mode="'range'"
+            :icon="''"
+            @getform="getFor"
+          />
+        </b-col>
+
         <company-info-form
           @getform="getFor"
         />
 
-        <contact-info-form @getform="form" />
+        <contact-info-form @getform="getFor" />
 
         <!-- reset and submit -->
         <b-col
@@ -38,22 +68,26 @@
 </template>
 
 <script>
-// import vSelect from 'vue-select'
-import { /* ValidationProvider, */ ValidationObserver } from 'vee-validate'
+import { ValidationObserver } from 'vee-validate'
 
 import {
-  /* BCard, */ BCol, BForm, BRow, /* BFormGroup, BFormInput, BInputGroup, BInputGroupPrepend, */ BButton, /* BFormCheckbox, BCardTitle, */ /* BInputGroupAppend, */
+  BCol, BForm, BRow, BButton,
 } from 'bootstrap-vue'
 import Ripple from 'vue-ripple-directive'
-// import { togglePasswordVisibility } from '@core/mixins/ui/forms'
-// import CompanyInformationForm from '../SuperAdmin/CompanyInformationForm.vue'
-import CompanyInfoForm from './CompanyInfoForm.vue'
-import ContactInfoForm from './ContactInfoFrom.vue'
+import CompanyInfoForm from './CreateCompanyForm/CompanyInfoForm.vue'
+import ContactInfoForm from './CreateCompanyForm/ContactInfoFrom.vue'
+import CustomInput from '../InputFields/CustomInput.vue'
+// import CustomSelect from '../InputFields/CustomSelect.vue'
+// import CustomTextarea from '../InputFields/CustomTextarea.vue'
+// import CustomCheckbox from '../InputFields/CustomCheckbox.vue'
 
 export default {
   name: 'CreateCompany',
   components: {
+    // CustomSelect,
     CompanyInfoForm,
+    // CustomTextarea,
+    CustomInput,
     // ValidationProvider,
     ContactInfoForm,
     // BCardTitle,
@@ -68,6 +102,7 @@ export default {
     // BInputGroupPrepend,
     // BCard,
     BForm,
+    // CustomCheckbox,
   },
   directives: {
     Ripple,
@@ -77,26 +112,29 @@ export default {
     return {
       isVerticalMenuCollapsed: this.$store.state.verticalMenu.isVerticalMenuCollapsed,
       form: {
-        // selectedModule: [],
-        // username: '',
-        // company_name: '',
-        // owner_name: '',
-        // password: '',
-        // c_password: '',
-        // email: '',
-        // mobile: '',
-        // status: '',
-        // address_line1: '',
-        // address_line2: '',
-        // phone_office: '',
-        // phone_resident: '',
-        // fax: '',
-        // zip: '',
-        // countrySelected: '',
-        // stateSelected: '',
-        // citySelected: '',
-        // assignedSelected: [],
-        // net_suit: '',
+        select_chec: [],
+        select_check: false,
+        checkbox: '',
+        selectedModule: [],
+        username: '',
+        company_name: '',
+        owner_name: '',
+        password: '',
+        c_password: '',
+        email: '',
+        mobile: '',
+        status: '',
+        address_line1: '',
+        address_line2: '',
+        phone_office: '',
+        phone_resident: '',
+        fax: '',
+        zip: '',
+        countrySelected: '',
+        stateSelected: '',
+        citySelected: '',
+        assignedSelected: [],
+        net_suit: '',
 
       },
 
@@ -114,30 +152,35 @@ export default {
       ],
       city: ['Jammu', 'Ahmedabad'],
       modulesOption: [
-        { title: 'CFM' },
-        { title: 'EPR' },
-        { title: 'LR' },
-        { title: 'RR' },
+        'CFM',
+        'EPR',
+        'LR',
+        'RR',
       ],
-    //   codeVerticalIcon,
     }
   },
-  // computed: {
-  //   passwordToggleIcon() {
-  //     return this.passwordFieldType === 'password' ? 'EyeIcon' : 'EyeOffIcon'
-  //   },
-  // },
   created() {
     this.$store.commit('verticalMenu/UPDATE_VERTICAL_MENU_COLLAPSED', true)
   },
   methods: {
-    getFor(a) {
-      this.form = a
+    getFor(value, name, type, remove) {
+      if (!name) {
+        Object.assign(this.form, value)
+      } else if (type === 'checkbox') {
+        if (value) {
+          this.form[name].push(value)
+        } else {
+          this.form[name].splice(this.form[name].indexOf(remove), 1)
+        }
+      } else {
+        this.form[name] = value
+      }
+      console.log(this.form.select_chec)
     },
     createCompany() {
-      this.$refs.createCompany.validate().then(success => {
-        console.log(success)
-      })
+      // this.$refs.createCompany.validate().then(success => {
+      console.log(this.form.select_chec)
+      // })
     },
   },
 }

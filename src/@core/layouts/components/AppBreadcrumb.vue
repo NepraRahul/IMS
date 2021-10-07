@@ -12,9 +12,9 @@
     >
       <b-row class="breadcrumbs-top">
         <b-col cols="12">
-          <h2 class="content-header-title float-left pr-1 mb-0">
+          <span class="content-header-title float-left pr-1 mb-0">
             {{ $route.meta.pageTitle }}
-          </h2>
+          </span>
           <div class="breadcrumb-wrapper">
             <b-breadcrumb>
               <b-breadcrumb-item to="/">

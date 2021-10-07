@@ -452,7 +452,8 @@
           </b-row>
         </b-card>
       </b-col>
-      <b-col xl="6">
+
+      <b-col xl="12">
 
         <b-card>
           <b-card-title class="">
@@ -538,166 +539,7 @@
           </b-row>
         </b-card>
       </b-col>
-      <b-col xl="6">
 
-        <b-card>
-          <b-card-title class="mb-Login">
-            Other Details
-          </b-card-title>
-          <b-row>
-            <!-- Task Group -->
-            <b-col cols="12">
-              <b-form-group
-                label="Task Group"
-                label-for="vi-task-group"
-              >
-                <b-input-group class="input-group-merge">
-                  <v-select
-                    v-model="form.task_group"
-                    class="form-control p-0 border-0"
-                    :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-                    label="title"
-                    placeholder=""
-                    multiple
-                    :options="task_group"
-                  />
-                </b-input-group>
-              </b-form-group>
-            </b-col>
-
-            <!-- IMEI Code -->
-            <b-col cols="6">
-              <b-form-group
-                label="IMEI Code"
-                label-for="vi-imei-code"
-              >
-                <b-input-group class="input-group-merge">
-                  <b-input-group-prepend is-text>
-                    <feather-icon icon="SmartphoneIcon" />
-                  </b-input-group-prepend>
-                  <b-form-input
-                    id="vi-imei-code"
-                    v-model="form.imei_code"
-                    type="text"
-                    placeholder="IMEI Code"
-                  />
-                </b-input-group>
-              </b-form-group>
-            </b-col>
-
-            <!-- Net Suit Code -->
-            <b-col cols="6">
-              <b-form-group
-                label="Net Suit Code"
-                label-for="vi-net-suit-code"
-              >
-                <b-input-group class="input-group-merge">
-                  <b-input-group-prepend is-text>
-                    <feather-icon icon="BriefcaseIcon" />
-                  </b-input-group-prepend>
-                  <b-form-input
-                    id="vi-net-suit-code"
-                    v-model="form.net_suit_code"
-                    type="text"
-                    placeholder="Net Suit Code"
-                  />
-                </b-input-group>
-              </b-form-group>
-            </b-col>
-
-            <!-- Collection Rate/Kg -->
-            <b-col cols="4">
-              <b-form-group
-                label="Collection Rate/Kg"
-                label-for="vi-phone-residence"
-              >
-                <b-input-group class="input-group-merge">
-                  <b-input-group-prepend is-text>
-                    <feather-icon icon="DatabaseIcon" />
-                  </b-input-group-prepend>
-                  <b-form-input
-                    id="vi-phone-residence"
-                    v-model="form.collection_rate"
-                    type="number"
-                    placeholder="Collection Rate/Kg"
-                  />
-                </b-input-group>
-              </b-form-group>
-            </b-col>
-
-            <!-- Dispatch Rate/Kg -->
-            <b-col cols="4">
-              <b-form-group
-                label="Dispatch Rate/Kg"
-                label-for="vi-dispatch-rate"
-              >
-                <b-input-group class="input-group-merge">
-                  <b-input-group-prepend is-text>
-                    <feather-icon icon="MailIcon" />
-                  </b-input-group-prepend>
-                  <b-form-input
-                    id="vi-dispatch-rate"
-                    v-model="form.dispatch_rate"
-                    type="number"
-                    placeholder="Dispatch Rate/Kg"
-                  />
-                </b-input-group>
-              </b-form-group>
-            </b-col>
-
-            <!-- Transfer Rate -->
-            <b-col cols="4">
-              <b-form-group
-                label="Transfer Rate"
-                label-for="vi-transfer-rate"
-              >
-                <b-input-group class="input-group-merge">
-                  <b-input-group-prepend is-text>
-                    <feather-icon icon="Minimize2Icon" />
-                  </b-input-group-prepend>
-                  <b-form-input
-                    id="vi-transfer-rate"
-                    v-model="form.transfer_rate"
-                    type="text"
-                    placeholder="Transfer Rate"
-                  />
-                </b-input-group>
-              </b-form-group>
-            </b-col>
-
-            <!-- Add Customer(in App) -->
-            <b-col cols="6">
-              <b-form-group
-                label=""
-                label-for="vi-add-customer"
-              >
-                <b-form-checkbox
-                  v-model="form.add_customer"
-                  class="custom-control-success"
-                >
-                  Add Customer(in App)
-                </b-form-checkbox>
-              </b-form-group>
-            </b-col>
-
-            <!-- Is Account Manager -->
-            <b-col cols="6">
-              <b-form-group
-                label=""
-                label-for="vi-is-account-manager"
-              >
-                <b-form-checkbox
-                  v-model="form.is_account_manager"
-                  class="custom-control-success"
-                >
-                  Is Account Manager
-                </b-form-checkbox>
-              </b-form-group>
-            </b-col>
-
-          </b-row>
-        </b-card>
-      </b-col>
       <!-- reset and submit -->
       <b-col
         cols="12"
@@ -829,5 +671,6 @@ export default {
 #profile_photo_preview img{
     padding: 10px;
     max-height: 220px;
+    width: 100%;
 }
 </style>
