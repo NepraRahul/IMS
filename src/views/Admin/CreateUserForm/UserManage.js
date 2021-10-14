@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-import routes from '@/router/superAdmin'
 import axios from '../../../utils/axios'
 
 export default {
@@ -14,43 +12,50 @@ export default {
     },
   },
   actions: {
-    getCompanyList({ commit }) {
+    getUsers() {
       return new Promise((resolve, reject) => {
         axios
-          .post('master-admin/company/list')
-          .then(response => {
-            resolve(response)
-            commit('setUser', response)
-          })
-          .catch(error => reject(error))
-      })
-    },
-    getCompanybyId(ctx, payload) {
-      const { company_id } = payload
-      return new Promise((resolve, reject) => {
-        axios
-          .post('master-admin/company/getById', { company_id })
+          .post('/admin/user/list')
           .then(response => {
             resolve(response)
           })
           .catch(error => reject(error))
       })
     },
-    createCompany(ctx, payload) {
-      const { data } = payload
+    getUserById(cts, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .post('master-admin/company/create', data)
+          .post('/admin/user/getById', payload)
           .then(response => {
             resolve(response)
           })
           .catch(error => reject(error))
       })
     },
-    updataCompany(ctx, payload) {
+    getUserType() {
       return new Promise((resolve, reject) => {
         axios
-          .post('master-admin/company/update', payload.data)
+          .get('/admin/user/show-user-type')
+          .then(response => {
+            resolve(response)
+          })
+          .catch(error => reject(error))
+      })
+    },
+    createUser(ctx, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .post('/admin/user/create', payload)
+          .then(response => {
+            resolve(response)
+          })
+          .catch(error => reject(error))
+      })
+    },
+    updateUser(ctx, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .post('/admin/user/update', payload)
           .then(response => {
             resolve(response)
           })

@@ -13,9 +13,12 @@ import './global-components'
 import '@/libs/portal-vue'
 import '@/libs/toastification'
 
+import constants from './constants'
+
 // BSV Plugin Registration
 Vue.use(ToastPlugin)
 Vue.use(ModalPlugin)
+Vue.use(constants)
 
 // Composition API
 Vue.use(VueCompositionAPI)

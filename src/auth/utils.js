@@ -1,5 +1,5 @@
 import useJwt from '@/auth/jwt/useJwt'
-
+import constants from '@/constants'
 /**
  * Return if user is logged in
  * This is completely up to you and how you want to store the token in your frontend application
@@ -21,7 +21,9 @@ export const getUserData = () => JSON.parse(localStorage.getItem('userData'))
  * @param {String} userRole Role of user
  */
 export const getHomeRouteForLoggedInUser = userRole => {
-  if (userRole === 'admin') return '/'
+  console.log(userRole)
+  if (userRole === constants.USER_TYPE_SUPER_ADMIN) return '/master-company-management/company/list'
+  if (userRole === constants.USER_TYPE_ADMIN) return '/admin/dashboard'
   if (userRole === 'client') return { name: 'access-control' }
   return { name: 'auth-login' }
 }

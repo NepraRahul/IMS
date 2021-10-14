@@ -1,6 +1,6 @@
 export default {
   // Endpoints
-  loginEndpoint: '/login',
+  loginEndpoint: 'http://192.168.10.30/IMS/public/api/web/v1/master-admin/login',
   registerEndpoint: '/jwt/register',
   refreshEndpoint: '/jwt/refresh-token',
   logoutEndpoint: '/jwt/logout',

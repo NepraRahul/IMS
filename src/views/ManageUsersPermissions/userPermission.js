@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
-import routes from '@/router/superAdmin'
-import axios from '../../../utils/axios'
+import axios from '../../utils/axios'
 
 export default {
   namespaced: true,
@@ -8,49 +6,52 @@ export default {
     users: '',
   },
   getters: {},
-  mutations: {
-    setUser(state, response) {
-      state.users = response.data.data
-    },
-  },
+  mutations: {},
   actions: {
-    getCompanyList({ commit }) {
+    getPermissionSettings() {
       return new Promise((resolve, reject) => {
         axios
-          .post('master-admin/company/list')
-          .then(response => {
-            resolve(response)
-            commit('setUser', response)
-          })
-          .catch(error => reject(error))
-      })
-    },
-    getCompanybyId(ctx, payload) {
-      const { company_id } = payload
-      return new Promise((resolve, reject) => {
-        axios
-          .post('master-admin/company/getById', { company_id })
+          .post('admin/user/show-rights')
           .then(response => {
             resolve(response)
           })
           .catch(error => reject(error))
       })
     },
-    createCompany(ctx, payload) {
-      const { data } = payload
+    getUsers() {
       return new Promise((resolve, reject) => {
         axios
-          .post('master-admin/company/create', data)
+          .get('admin/user/show-user-name')
           .then(response => {
             resolve(response)
           })
           .catch(error => reject(error))
       })
     },
-    updataCompany(ctx, payload) {
+    getUserTypePermissions(ctx, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .post('master-admin/company/update', payload.data)
+          .post('admin/user/show-user-rights', payload)
+          .then(response => {
+            resolve(response)
+          })
+          .catch(error => reject(error))
+      })
+    },
+    saveUserPermission(ctx, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .post('admin/user/edit-user-rights', payload)
+          .then(response => {
+            resolve(response)
+          })
+          .catch(error => reject(error))
+      })
+    },
+    saveUserTypePermissions(ctx, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .post('admin/user/edit-user-rights', payload)
           .then(response => {
             resolve(response)
           })

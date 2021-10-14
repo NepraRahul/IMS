@@ -12,11 +12,11 @@
     >
       <b-row class="breadcrumbs-top">
         <b-col cols="12">
-          <span class="content-header-title float-left pr-1 mb-0">
-            {{ $route.meta.pageTitle }}
-          </span>
           <div class="breadcrumb-wrapper">
-            <b-breadcrumb>
+            <b-breadcrumb class="pl-0">
+              <span class="content-header-title float-left d-flex align-items-baseline pr-1 mr-1 mb-0">
+                {{ $route.meta.pageTitle }}
+              </span>
               <b-breadcrumb-item to="/">
                 <feather-icon
                   icon="HomeIcon"

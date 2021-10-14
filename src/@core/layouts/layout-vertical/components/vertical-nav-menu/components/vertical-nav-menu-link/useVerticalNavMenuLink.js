@@ -5,7 +5,6 @@ export default function useVerticalNavMenuLink(item) {
   const isActive = ref(false)
 
   const linkProps = navLinkProps(item)
-
   const updateIsActive = () => {
     isActive.value = isNavLinkActive(item)
   }

@@ -1,9 +1,16 @@
+import checkPermission from '@/utils/utils'
+
 const routes = [
   {
-    path: '/super-admin/company-list',
-    name: 'company-list',
-    component: () => import('@/views/SuperAdmin/CompanyList.vue'),
+    path: '/master-company-management/company/list',
+    name: 'master-company-management/company/list',
+    component: () => import('@/views/SuperAdmin/CreateCompanyForm/CompanyList.vue'),
+    beforeEnter: (to, from, next) => {
+      checkPermission(to, from, next)
+    },
     meta: {
+      requiresAuth: true,
+      key: 500,
       pageTitle: 'Company List',
       breadcrumb: [
         {
@@ -14,10 +21,53 @@ const routes = [
     },
   },
   {
-    path: '/super-admin/create-company',
-    name: 'create-comapany',
-    component: () => import('@/views/SuperAdmin/CreateCompany.vue'),
+    path: '/super-admin/company-list',
+    name: 'company-list',
+    component: () => import('@/views/SuperAdmin/CreateCompanyForm/CompanyList.vue'),
+    beforeEnter: (to, from, next) => {
+      checkPermission(to, from, next)
+    },
     meta: {
+      requiresAuth: true,
+      key: 500,
+      pageTitle: 'Company List',
+      breadcrumb: [
+        {
+          text: 'Company List',
+          active: true,
+        },
+      ],
+    },
+  },
+  {
+    path: '/master-company-management/company/edit-company/:id',
+    name: 'master-company-management/company/edit-company',
+    component: () => import('@/views/SuperAdmin/CreateCompanyForm/CreateCompany.vue'),
+    beforeEnter: (to, from, next) => {
+      checkPermission(to, from, next)
+    },
+    meta: {
+      requiresAuth: true,
+      key: 500,
+      pageTitle: 'Create Company',
+      breadcrumb: [
+        {
+          text: 'Create Company',
+          active: true,
+        },
+      ],
+    },
+  },
+  {
+    path: '/master-company-management/company/create-company',
+    name: 'master-company-management/company/create-company',
+    component: () => import('@/views/SuperAdmin/CreateCompanyForm/CreateCompany.vue'),
+    beforeEnter: (to, from, next) => {
+      checkPermission(to, from, next)
+    },
+    meta: {
+      requiresAuth: true,
+      key: 500,
       pageTitle: 'Create Company',
       breadcrumb: [
         {

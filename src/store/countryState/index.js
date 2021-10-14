@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
-import routes from '@/router/superAdmin'
-import axios from '../../../utils/axios'
+import axios from '../../utils/axios'
 
 export default {
   namespaced: true,
@@ -9,48 +7,43 @@ export default {
   },
   getters: {},
   mutations: {
-    setUser(state, response) {
-      state.users = response.data.data
-    },
+
   },
   actions: {
-    getCompanyList({ commit }) {
+    getModuleList(ctx, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .post('master-admin/company/list')
-          .then(response => {
-            resolve(response)
-            commit('setUser', response)
-          })
-          .catch(error => reject(error))
-      })
-    },
-    getCompanybyId(ctx, payload) {
-      const { company_id } = payload
-      return new Promise((resolve, reject) => {
-        axios
-          .post('master-admin/company/getById', { company_id })
+          .get('master-admin/modules-list', { payload })
           .then(response => {
             resolve(response)
           })
           .catch(error => reject(error))
       })
     },
-    createCompany(ctx, payload) {
-      const { data } = payload
+    getCountryList(ctx, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .post('master-admin/company/create', data)
+          .get('master-admin/country-list', { payload })
           .then(response => {
             resolve(response)
           })
           .catch(error => reject(error))
       })
     },
-    updataCompany(ctx, payload) {
+    getStateList(ctx, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .post('master-admin/company/update', payload.data)
+          .post('master-admin/state-list', { country_id: payload.country_id })
+          .then(response => {
+            resolve(response)
+          })
+          .catch(error => reject(error))
+      })
+    },
+    getCityList(ctx, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .post('master-admin/city-list', { state_id: payload.state_id })
           .then(response => {
             resolve(response)
           })

@@ -1,12 +1,3 @@
-export default [
-  {
-    title: 'Home',
-    route: 'home',
-    icon: 'HomeIcon',
-  },
-  {
-    title: 'Second Page',
-    route: 'second-page',
-    icon: 'FileIcon',
-  },
-]
+const menu = JSON.parse(localStorage.getItem('menu'))
+
+export default menu

@@ -5,7 +5,7 @@
   >
     <b-form @submit.prevent="createCompany">
       <b-row>
-        <b-col>
+        <!-- <b-col>
           <custom-input
             :id="'autosuggest__input_ajax'"
             :class="'required'"
@@ -33,13 +33,19 @@
             :icon="''"
             @getform="getFor"
           />
-        </b-col>
+        </b-col> -->
 
         <company-info-form
+          :req="req"
+          :form="form"
           @getform="getFor"
         />
 
-        <contact-info-form @getform="getFor" />
+        <contact-info-form
+          :req="req"
+          :form="form"
+          @getform="getFor"
+        />
 
         <!-- reset and submit -->
         <b-col
@@ -74,89 +80,67 @@ import {
   BCol, BForm, BRow, BButton,
 } from 'bootstrap-vue'
 import Ripple from 'vue-ripple-directive'
-import CompanyInfoForm from './CreateCompanyForm/CompanyInfoForm.vue'
-import ContactInfoForm from './CreateCompanyForm/ContactInfoFrom.vue'
-import CustomInput from '../InputFields/CustomInput.vue'
-// import CustomSelect from '../InputFields/CustomSelect.vue'
-// import CustomTextarea from '../InputFields/CustomTextarea.vue'
-// import CustomCheckbox from '../InputFields/CustomCheckbox.vue'
+import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
+import store from '../../../store'
+import CompanyInfoForm from './CreateCompany/CompanyInfoForm.vue'
+import ContactInfoForm from './CreateCompany/ContactInfoFrom.vue'
 
 export default {
   name: 'CreateCompany',
   components: {
-    // CustomSelect,
     CompanyInfoForm,
-    // CustomTextarea,
-    CustomInput,
-    // ValidationProvider,
     ContactInfoForm,
     // BCardTitle,
     ValidationObserver,
-    // BFormCheckbox,
     BRow,
     BButton,
     BCol,
-    // BFormGroup,
-    // BFormInput,
-    // BInputGroup,
-    // BInputGroupPrepend,
-    // BCard,
     BForm,
-    // CustomCheckbox,
   },
   directives: {
     Ripple,
   },
-  // mixins: [togglePasswordVisibility],
   data() {
     return {
       isVerticalMenuCollapsed: this.$store.state.verticalMenu.isVerticalMenuCollapsed,
+      req: true,
       form: {
-        select_chec: [],
-        select_check: false,
-        checkbox: '',
-        selectedModule: [],
-        username: '',
+        company_id: '',
+        module_ids: '',
         company_name: '',
-        owner_name: '',
-        password: '',
-        c_password: '',
-        email: '',
-        mobile: '',
-        status: '',
-        address_line1: '',
-        address_line2: '',
+        company_owner_name: '',
+        company_email: '',
+        address1: '',
+        address2: '',
+        city: '',
+        state: '',
+        country: '',
+        zipcode: '',
         phone_office: '',
-        phone_resident: '',
+        phone_home: '',
+        mobile: '',
         fax: '',
-        zip: '',
-        countrySelected: '',
-        stateSelected: '',
-        citySelected: '',
-        assignedSelected: [],
-        net_suit: '',
-
+        gst_no: '',
+        cin_no: '',
+        pan: '',
+        status: '',
+        username: '',
+        password: '',
       },
-
-      assignCities: [
-        { title: 'India' },
-        { title: 'Nepal' },
-      ],
-      country: [
-        { title: 'India' },
-        { title: 'Nepal' },
-      ],
-      state: [
-        { title: 'J&K' },
-        { title: 'Gujarat' },
-      ],
-      city: ['Jammu', 'Ahmedabad'],
-      modulesOption: [
-        'CFM',
-        'EPR',
-        'LR',
-        'RR',
-      ],
+    }
+  },
+  mounted() {
+    if (this.$route.params.id) {
+      this.form.company_id = this.$route.params.id
+      this.req = false
+      store.dispatch('companyStore/getCompanybyId', { company_id: this.form.company_id })
+        .then(response => {
+          if (response.data.code === '200') {
+            this.form = response.data.data
+          }
+        })
+    } else {
+      this.form.company_id = '0'
     }
   },
   created() {
@@ -178,9 +162,46 @@ export default {
       console.log(this.form.select_chec)
     },
     createCompany() {
-      // this.$refs.createCompany.validate().then(success => {
-      console.log(this.form.select_chec)
-      // })
+      this.$refs.createCompany.validate().then(success => {
+        if (success) {
+          const data = this.form
+          if (data.company_id === '0') {
+            store.dispatch('companyStore/createCompany', { data })
+              .then(response => {
+                if (response.data.code === '200') {
+                  this.$toast({
+                    component: ToastificationContent,
+                    position: 'top-right',
+                    props: {
+                      title: `${response.data.msg}`,
+                      icon: 'Success',
+                      variant: 'success',
+                      text: `${response.data.data}`,
+                    },
+                  })
+                  this.$router.push('/master-company-management/company/list')
+                }
+              })
+          } else {
+            store.dispatch('companyStore/updataCompany', { data })
+              .then(response => {
+                if (response.data.code === '200') {
+                  this.$toast({
+                    component: ToastificationContent,
+                    position: 'top-right',
+                    props: {
+                      title: `${response.data.msg}`,
+                      icon: 'Success',
+                      variant: 'success',
+                      text: `${response.data.data}`,
+                    },
+                  })
+                  this.$router.push('/master-company-management/company/list')
+                }
+              })
+          }
+        }
+      })
     },
   },
 }

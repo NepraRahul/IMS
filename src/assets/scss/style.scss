@@ -63,3 +63,9 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
   body.dark-layout .autosuggest__results-container .autosuggest__results .my-suggestion-item {
     color: #b4b7bd;
   }
+
+  .required label:first-child:before{
+    content: "*";
+    padding: 0 5px 0 5px;
+    color: red;
+  }

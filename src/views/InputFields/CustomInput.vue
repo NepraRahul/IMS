@@ -44,14 +44,6 @@
             <span class="px-1"> {{ crv.title }} </span>
           </b-form-checkbox>
         </div>
-        <!-- <b-form-radio
-          v-else-if="type == 'radio' || type == 'radio'"
-          v-model="crval"
-          :name="inputname"
-          @input="$emit('getform', $event, inputname)"
-        >
-          {{ crlabel }}
-        </b-form-radio> -->
 
         <div
           v-else-if="type == 'radio' || type == 'radio'"

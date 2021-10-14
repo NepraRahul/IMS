@@ -196,11 +196,12 @@ export default {
   data() {
     return {
       status: '',
-      password: 'admin',
-      userEmail: 'admin@demo.com',
+      password: 'admin@123',
+      userEmail: 'admin@admin.com',
       sideImg: require('@/assets/images/pages/login-v2.svg'),
-
-      // validation rules
+      userData: {},
+      menu: {},
+      permission: [],
       required,
       email,
     }
@@ -221,46 +222,72 @@ export default {
   methods: {
     login() {
       this.$refs.loginForm.validate().then(success => {
-        console.log(success)
         if (success) {
+          document.getElementById('loading-bg').style.display = 'block'
           useJwt.login({
             email: this.userEmail,
             password: this.password,
           })
-            .then(response => {
-              const { userData } = response.data
-              useJwt.setToken(response.data.accessToken)
-              useJwt.setRefreshToken(response.data.refreshToken)
-              localStorage.setItem('userData', JSON.stringify(userData))
-              this.$ability.update(userData.ability)
+            .then(async response => {
+              if (response.data.code === '200') {
+                this.userData = response.data.data.user_details
+                this.menu = response.data.data.menu
+                this.permission = response.data.data.permission
 
-              // ? This is just for demo purpose as well.
-              // ? Because we are showing eCommerce app's cart items count in navbar
-              this.$store.commit('app-ecommerce/UPDATE_CART_ITEMS_COUNT', userData.extras.eCommerceCartItemsCount)
-
-              // ? This is just for demo purpose. Don't think CASL is role based in this case, we used role in if condition just for ease
-              this.$router.replace(getHomeRouteForLoggedInUser(userData.role))
-                .then(() => {
-                  this.$toast({
-                    component: ToastificationContent,
-                    position: 'top-right',
-                    props: {
-                      title: `Welcome ${userData.fullName || userData.username}`,
-                      icon: 'CoffeeIcon',
-                      variant: 'success',
-                      text: `You have successfully logged in as ${userData.role}. Now you can start to explore!`,
-                    },
+                this.dataLocalize()
+                // ? This is just for demo purpose. Don't think CASL is role based in this case, we used role in if condition just for ease
+                this.$router.replace(getHomeRouteForLoggedInUser(this.userData.user_type))
+                  .then(() => {
+                    this.$toast({
+                      component: ToastificationContent,
+                      position: 'top-right',
+                      props: {
+                        title: `Welcome ${this.userData.firstname || this.userData.username}`,
+                        icon: 'CoffeeIcon',
+                        variant: 'success',
+                        text: `You have successfully logged in as ${this.userData.user_type}. Now you can start to explore!`,
+                      },
+                    })
                   })
+              } else {
+                console.log(response)
+                this.$toast({
+                  component: ToastificationContent,
+                  position: 'top-right',
+                  props: {
+                    title: 'Incorrect Details',
+                    icon: 'Warning',
+                    variant: 'danger',
+                    text: `${response.data.msg}. Please check details`,
+                  },
                 })
+              }
             })
             .catch(error => {
-              console.log(error.response.data)
-              this.$refs.loginForm.setErrors(error.response.data.error)
+              this.$toast({
+                component: ToastificationContent,
+                position: 'top-right',
+                props: {
+                  title: 'Something Went Wrong!',
+                  icon: 'Warning',
+                  variant: 'danger',
+                  text: error,
+                },
+              })
+              // this.$refs.loginForm.setErrors(error.data)
             })
+          // document.getElementById('loading-bg').style.display = 'none'
         }
       })
     },
+    dataLocalize() {
+      useJwt.setToken(this.userData.token.plainTextToken)
+      localStorage.setItem('menu', JSON.stringify(this.menu))
+      localStorage.setItem('userData', JSON.stringify(this.userData))
+      localStorage.setItem('permission', this.permission)
+    },
   },
+
 }
 </script>
 

@@ -20,7 +20,7 @@ import { watch } from '@vue/composition-api'
 import useAppConfig from '@core/app-config/useAppConfig'
 
 import { useWindowSize, useCssVar } from '@vueuse/core'
-
+import $ from 'jquery'
 import store from '@/store'
 
 const LayoutVertical = () => import('@/layouts/vertical/LayoutVertical.vue')
@@ -96,6 +96,20 @@ export default {
     return {
       skinClasses,
     }
+  },
+  updated() {
+    $('.nav-item.active').parents('.nav-item').addClass('open')
+    $('.nav-item.active').parents('.menu-content').addClass('show').css('display', 'block')
+    // eslint-disable-next-line func-names
+    $('.nav-toggle').click(function () {
+      if ($(this).find('circle').length === 2) {
+        $('.nav-item.active').parents('.nav-item').addClass('open')
+        $('.nav-item.active').parents('.menu-content').addClass('show').css('display', 'block')
+      } else {
+        $('.nav-item.active').parents('.nav-item').removeClass('open')
+        $('.nav-item.active').parents('.menu-content').removeClass('show').css('display', 'none')
+      }
+    })
   },
 }
 </script>
