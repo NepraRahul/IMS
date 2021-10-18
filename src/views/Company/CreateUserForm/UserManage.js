@@ -1,5 +1,5 @@
+import axiosComapny from '../../../utils/axiosCompany'
 import axios from '../../../utils/axios'
-// import axiosComapny from '../../../utils/axiosCompany'
 
 export default {
   namespaced: true,
@@ -25,8 +25,8 @@ export default {
     },
     getUsers() {
       return new Promise((resolve, reject) => {
-        axios
-          .post('/admin/user/list')
+        axiosComapny
+          .post('/company-user/list')
           .then(response => {
             resolve(response)
           })
@@ -35,8 +35,8 @@ export default {
     },
     getUserById(cts, payload) {
       return new Promise((resolve, reject) => {
-        axios
-          .post('/admin/user/getById', payload)
+        axiosComapny
+          .post('/company-user/getById', payload)
           .then(response => {
             resolve(response)
           })
@@ -45,8 +45,8 @@ export default {
     },
     getUserType() {
       return new Promise((resolve, reject) => {
-        axios
-          .get('/admin/user/show-user-type')
+        axiosComapny
+          .get('/company-user/show-user-type')
           .then(response => {
             resolve(response)
           })
@@ -55,8 +55,8 @@ export default {
     },
     createUser(ctx, payload) {
       return new Promise((resolve, reject) => {
-        axios
-          .post('/admin/user/create', payload)
+        axiosComapny
+          .post('/company-user/create', payload)
           .then(response => {
             resolve(response)
           })
@@ -65,8 +65,8 @@ export default {
     },
     updateUser(ctx, payload) {
       return new Promise((resolve, reject) => {
-        axios
-          .post('/admin/user/update', payload)
+        axiosComapny
+          .post('/company-user/update', payload)
           .then(response => {
             resolve(response)
           })

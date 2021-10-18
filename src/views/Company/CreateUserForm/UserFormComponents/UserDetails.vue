@@ -199,29 +199,13 @@
               <b-input-group class="input-group-merge">
                 <!-- <b-input-group-prepend is-text>
                   <feather-icon icon="MapPinIcon" />
-                </b-input-group-prepend> -->
-                <!-- <b-form-input
+                </b-input-group-prepend>
+                <b-form-input
                   id="vi-city"
                   v-model="form.city"
                   type="text"
                   placeholder="City"
                   @change="handleForm"
-                /> -->
-                <!-- <vue-autosuggest
-                  ref="autocomplete"
-                  v-model="form.city"
-                  :suggestions="suggestions"
-                  :input-props="{
-                    id: 'id',
-                    placeholder: 'placeholder',
-                    class: 'form-control',
-                    name: 'inputname',
-                  }"
-                  :section-configs="sectionConfigs"
-                  :limit="10"
-                  :render-suggestion="renderSuggestion"
-                  :on-selected="onSelected"
-                  @input="fetchResults"
                 /> -->
                 <v-select
                   v-model="form.city"
@@ -281,18 +265,14 @@ import {
 } from 'bootstrap-vue'
 import Ripple from 'vue-ripple-directive'
 import { togglePasswordVisibility } from '@core/mixins/ui/forms'
-// import { VueAutosuggest } from 'vue-autosuggest'
-// import axios from 'axios'
-import store from '../../../../store'
 // import LoginDetails from './CreateUserForm/LoginDetails.vue'
+import store from '../../../../store'
 
 export default {
   name: 'UserDetails',
   components: {
-    // vSelect,
-    BCardTitle,
     vSelect,
-    // VueAutosuggest,
+    BCardTitle,
     ValidationProvider,
     BRow,
     // BButton,
@@ -329,9 +309,6 @@ export default {
       this.form = newVal
     },
   },
-  mounted() {
-
-  },
   methods: {
     handleForm() {
       this.$emit('getCreateUser', this.form)
@@ -345,7 +322,6 @@ export default {
       })
     },
   },
-
 }
 </script>
 

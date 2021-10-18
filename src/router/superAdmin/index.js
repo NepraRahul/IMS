@@ -10,26 +10,7 @@ const routes = [
     },
     meta: {
       requiresAuth: true,
-      key: 500,
-      pageTitle: 'Company List',
-      breadcrumb: [
-        {
-          text: 'Company List',
-          active: true,
-        },
-      ],
-    },
-  },
-  {
-    path: '/super-admin/company-list',
-    name: 'company-list',
-    component: () => import('@/views/SuperAdmin/CreateCompanyForm/CompanyList.vue'),
-    beforeEnter: (to, from, next) => {
-      checkPermission(to, from, next)
-    },
-    meta: {
-      requiresAuth: true,
-      key: 500,
+      key: 1001,
       pageTitle: 'Company List',
       breadcrumb: [
         {
@@ -48,7 +29,7 @@ const routes = [
     },
     meta: {
       requiresAuth: true,
-      key: 500,
+      key: 1003,
       pageTitle: 'Create Company',
       breadcrumb: [
         {
@@ -67,7 +48,7 @@ const routes = [
     },
     meta: {
       requiresAuth: true,
-      key: 500,
+      key: 1002,
       pageTitle: 'Create Company',
       breadcrumb: [
         {

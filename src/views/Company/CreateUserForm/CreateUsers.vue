@@ -110,16 +110,16 @@ export default {
 
   mounted() {
     if (this.$route.params.id) {
-      this.form.adminuserid = this.$route.params.id
+      this.form.companyuserid = this.$route.params.id
       this.req = false
-      store.dispatch('userManage/getUserById', { adminuserid: this.form.adminuserid })
+      store.dispatch('CompanyuserManage/getUserById', { companyuserid: this.form.companyuserid })
         .then(response => {
           if (response.data.code === '200') {
             this.form = response.data.data
           }
         })
     } else {
-      this.form.adminuserid = '0'
+      this.form.companyuserid = '0'
     }
   },
   created() {
@@ -145,8 +145,8 @@ export default {
       this.$refs.createUser.validate().then(success => {
         if (success) {
           const data = this.form
-          if (data.adminuserid === '0') {
-            store.dispatch('userManage/createUser', data).then(response => {
+          if (data.companyuserid === '0') {
+            store.dispatch('CompanyuserManage/createUser', data).then(response => {
               if (response.data.code === '200') {
                 this.$toast({
                   component: ToastificationContent,
@@ -158,11 +158,11 @@ export default {
                     text: '',
                   },
                 })
-                this.$router.push('/admin/users-list')
+                this.$router.push('/company/users-list')
               }
             })
           } else {
-            store.dispatch('userManage/updateUser', this.form).then(response => {
+            store.dispatch('CompanyuserManage/updateUser', this.form).then(response => {
               if (response.data.code === '200') {
                 this.$toast({
                   component: ToastificationContent,
@@ -174,7 +174,7 @@ export default {
                     text: '',
                   },
                 })
-                this.$router.push('/admin/users-list')
+                this.$router.push('/company/users-list')
               }
             })
           }

@@ -16,8 +16,8 @@
         :fields="userFields"
         @row-contextmenu="contextmenu"
       >
-        <template #cell(adminuserid)="data">
-          <span class="">{{ data.item.adminuserid }}</span>
+        <template #cell(id)="data">
+          <span class="">{{ data.item.companyuserid }}</span>
         </template>
         <template #cell(username)="data">
           <span class="">{{ data.item.username }}</span>
@@ -102,14 +102,14 @@ export default {
     return {
       constants,
       items: [],
-      userFields: ['AdminUserId', 'Username', 'Email', 'FirstName', 'LastName', 'CityName', 'Usertype', 'Status'],
+      userFields: ['Id', 'Username', 'Email', 'FirstName', 'LastName', 'CityName', 'Usertype', 'Status'],
       menuData: [
         { icon: 'EditIcon', text: 'Edit User' },
       ],
     }
   },
   mounted() {
-    store.dispatch('userManage/getUsers').then(response => {
+    store.dispatch('CompanyuserManage/getUsers').then(response => {
       if (response.data.code === '200') {
         this.items = response.data.data.data
       }
@@ -120,7 +120,7 @@ export default {
   },
   methods: {
     redirectToCreate() {
-      this.$router.push('/admin/create-users')
+      this.$router.push('/company/create-user')
     },
     contextmenu(item, index, event) {
       event.preventDefault()
@@ -129,7 +129,7 @@ export default {
     },
     optionClicked(text) {
       if (text === 'Edit User') {
-        this.$root.$router.push(`/admin/user/edit-user/${this.values.adminuserid}`)
+        this.$root.$router.push(`/company/user/edit-user/${this.values.companyuserid}`)
       }
     },
   },

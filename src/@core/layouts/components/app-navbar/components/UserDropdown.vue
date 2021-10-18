@@ -9,7 +9,18 @@
         <p class="user-name font-weight-bolder mb-0">
           {{ userData.fullName || userData.username }}
         </p>
-        <span class="user-status">{{ userData.role }}</span>
+        <span
+          v-if="userData.user_type === constants.USER_TYPE_ADMIN"
+          class="user-status"
+        >Admin</span>
+        <span
+          v-if="userData.user_type === constants.USER_TYPE_SUPER_ADMIN"
+          class="user-status"
+        >Super Admin</span>
+        <span
+          v-if="userData.user_type === constants.USER_TYPE_USER"
+          class="user-status"
+        >User</span>
       </div>
       <b-avatar
         size="40"
@@ -127,6 +138,7 @@ import {
 import { avatarText } from '@core/utils/filter'
 import { initialAbility } from '@/libs/acl/config'
 import useJwt from '@/auth/jwt/useJwt'
+import constants from '../../../../../constants'
 
 export default {
   components: {
@@ -137,6 +149,7 @@ export default {
   },
   data() {
     return {
+      constants,
       userData: JSON.parse(localStorage.getItem('userData')),
       avatarText,
     }

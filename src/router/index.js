@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import checkPermission from '../utils/utils'
 import superRoutes from './superAdmin'
 import adminRoutes from './Admin'
+import companyRoutes from './Company'
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,7 @@ const router = new VueRouter({
   routes: [
     ...superRoutes,
     ...adminRoutes,
+    ...companyRoutes,
     {
       path: '/reset-password',
       name: 'auth-reset-password',
@@ -41,6 +43,15 @@ const router = new VueRouter({
       },
     },
     {
+      path: '/user-login',
+      name: 'user-login',
+      component: () => import('@/views/Company/Login.vue'),
+      meta: {
+        requiresAuth: false,
+        layout: 'full',
+      },
+    },
+    {
       path: '/manage-users/permission-setting',
       name: 'manage-users/permission-setting',
       component: () => import('@/views/ManageUsersPermissions/UserTypePermissions.vue'),
@@ -48,6 +59,7 @@ const router = new VueRouter({
         checkPermission(to, from, next)
       },
       meta: {
+        key: 1004,
         pageTitle: 'Permission Setting',
         breadcrumb: [
           {
@@ -94,9 +106,9 @@ const router = new VueRouter({
 function isLoggedIn() {
   return localStorage.getItem('accessToken')
 }
-function userType() {
+/* function userType() {
   return localStorage.getItem('userData').user_type
-}
+} */
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
@@ -111,9 +123,9 @@ router.beforeEach((to, from, next) => {
   } else if (!to.matched.some(record => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
-    if (isLoggedIn() && userType() === '10') {
+    if (isLoggedIn()) {
       router.push({ path: '/master-company-management/company/list' })
-    } else if (isLoggedIn() && userType() === '1') {
+    } else if (isLoggedIn()) {
       router.push({ path: '/admin/dashboard' })
     } else {
       next()

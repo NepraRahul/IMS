@@ -317,12 +317,12 @@ export default {
     },
   },
   mounted() {
-    store.dispatch('userManage/getUserType').then(response => {
+    store.dispatch('CompanyuserManage/getUserType').then(response => {
       if (response.data.code === '200') {
         this.userTypes = response.data.data
       }
     })
-    store.dispatch('userManage/getServices').then(response => {
+    store.dispatch('CompanyuserManage/getServices').then(response => {
       if (response.data.code === '200') {
         this.services = response.data.data
       }

@@ -9,6 +9,8 @@ import companyStore from '../views/SuperAdmin/CreateCompanyForm/companyStore'
 import getCountryList from './countryState'
 import userPermission from '../views/ManageUsersPermissions/userPermission'
 import userManage from '../views/Admin/CreateUserForm/UserManage'
+import CompanyuserManage from '../views/Company/CreateUserForm/UserManage'
+import CompanyPermission from '../views/Company/ManageUsersPermissions/userPermission'
 
 Vue.use(Vuex)
 
@@ -21,6 +23,8 @@ export default new Vuex.Store({
     getCountryList,
     userPermission,
     userManage,
+    CompanyuserManage,
+    CompanyPermission,
   },
   strict: process.env.DEV,
 })

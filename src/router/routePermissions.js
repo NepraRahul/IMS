@@ -1,5 +1,9 @@
-// eslint-disable-next-line camelcase
-const Manage_User_Right = 500
+let rights
+if (localStorage.getItem('permission')) {
+  rights = localStorage.getItem('permission').split(',')
+} else {
+  rights = []
+}
 export default {
-  Manage_User_Right,
+  rights,
 }

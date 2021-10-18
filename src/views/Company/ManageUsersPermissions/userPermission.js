@@ -1,5 +1,4 @@
-import axios from '../../../utils/axios'
-// import axiosComapny from '../../../utils/axiosCompany'
+import axiosComapny from '../../../utils/axiosCompany'
 
 export default {
   namespaced: true,
@@ -7,16 +6,12 @@ export default {
     users: '',
   },
   getters: {},
-  mutations: {
-    setUser(state, response) {
-      state.users = response.data.data
-    },
-  },
+  mutations: {},
   actions: {
-    getServices() {
+    getPermissionSettings() {
       return new Promise((resolve, reject) => {
-        axios
-          .get('/master-admin/service-list')
+        axiosComapny
+          .post('company-user/show-rights')
           .then(response => {
             resolve(response)
           })
@@ -25,48 +20,38 @@ export default {
     },
     getUsers() {
       return new Promise((resolve, reject) => {
-        axios
-          .post('/admin/user/list')
+        axiosComapny
+          .get('company-user/show-user-name')
           .then(response => {
             resolve(response)
           })
           .catch(error => reject(error))
       })
     },
-    getUserById(cts, payload) {
+    getUserTypePermissions(ctx, payload) {
       return new Promise((resolve, reject) => {
-        axios
-          .post('/admin/user/getById', payload)
+        axiosComapny
+          .post('company-user/show-user-rights', payload)
           .then(response => {
             resolve(response)
           })
           .catch(error => reject(error))
       })
     },
-    getUserType() {
+    saveUserPermission(ctx, payload) {
       return new Promise((resolve, reject) => {
-        axios
-          .get('/admin/user/show-user-type')
+        axiosComapny
+          .post('company-user/edit-user-rights', payload)
           .then(response => {
             resolve(response)
           })
           .catch(error => reject(error))
       })
     },
-    createUser(ctx, payload) {
+    saveUserTypePermissions(ctx, payload) {
       return new Promise((resolve, reject) => {
-        axios
-          .post('/admin/user/create', payload)
-          .then(response => {
-            resolve(response)
-          })
-          .catch(error => reject(error))
-      })
-    },
-    updateUser(ctx, payload) {
-      return new Promise((resolve, reject) => {
-        axios
-          .post('/admin/user/update', payload)
+        axiosComapny
+          .post('company-user/edit-user-rights', payload)
           .then(response => {
             resolve(response)
           })

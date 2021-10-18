@@ -50,5 +50,15 @@ export default {
           .catch(error => reject(error))
       })
     },
+    getCityAuto(ctx, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .post('/master-admin/city-autocomplete-list', { city: payload.city })
+          .then(response => {
+            resolve(response)
+          })
+          .catch(error => reject(error))
+      })
+    },
   },
 }
