@@ -1,75 +1,134 @@
 <template>
-  <b-col xl="7">
+  <b-col xl="5">
 
     <b-card>
       <b-card-title class="">
-        Add Lead
+        Contact Details
       </b-card-title>
       <b-row>
-        <!-- Conpany-->
-        <b-col cols="6">
-          <b-form-group
-            label="Company"
-            label-for="vi-company"
-            class=""
-          >
-            <validation-provider
-              #default="{ errors }"
-              name="Comapny"
-              vid="vi-company"
-              rules=""
-            >
-              <b-form-radio
-                v-model="form.company_individual"
-                name="company-individual"
-                value="1"
-                @change="handleForm"
-              />
-              <small class="text-danger">{{ errors[0] }}</small>
-            </validation-provider>
-          </b-form-group>
-        </b-col>
-
-        <!-- Individual -->
-        <b-col cols="6">
-          <b-form-group
-            label="Individual"
-            label-for="vi-individual"
-            class=""
-          >
-            <validation-provider
-              #default="{ errors }"
-              name="Individual"
-              vid="vi-individual"
-              rules=""
-            >
-              <b-form-radio
-                v-model="form.company_individual"
-                name="company-individual"
-                value="2"
-                @change="handleForm"
-              />
-              <small class="text-danger">{{ errors[0] }}</small>
-            </validation-provider>
-          </b-form-group>
-        </b-col>
-
-        <!-- Select -->
+        <!-- Name -->
         <b-col cols="12">
           <b-form-group
-            :label="form.company_individual_select"
-            label-for="vi-company-individual-select"
+            label="Name"
+            label-for="vi-Name"
             class="required"
           >
             <validation-provider
               #default="{ errors }"
-              name="company Individual Select"
-              vid="vi-company_individual_select"
+              name="Name"
+              vid="vi-Name"
+              rules="required"
+            >
+              <b-input-group class="input-group-merge">
+                <b-form-input
+                  id="vi-Name"
+                  v-model="form.name"
+                  type="text"
+                  placeholder="Name"
+                  @change="handleForm"
+                />
+              </b-input-group>
+              <small class="text-danger">{{ errors[0] }}</small>
+            </validation-provider>
+          </b-form-group>
+        </b-col>
+
+        <!-- email -->
+        <b-col cols="12">
+          <b-form-group
+            label="Email"
+            label-for="vi-email"
+            class=""
+          >
+            <validation-provider
+              #default="{ errors }"
+              name="Email"
+              vid="vi-email"
+              rules="email"
+            >
+              <b-input-group class="input-group-merge">
+                <b-form-input
+                  id="vi-email"
+                  v-model="form.email"
+                  type="text"
+                  placeholder="email"
+                  @change="handleForm"
+                />
+              </b-input-group>
+              <small class="text-danger">{{ errors[0] }}</small>
+            </validation-provider>
+          </b-form-group>
+        </b-col>
+        <!-- Mobile -->
+        <b-col cols="12">
+          <b-form-group
+            label="Mobile"
+            label-for="vi-mobile"
+            class=""
+          >
+            <validation-provider
+              #default="{ errors }"
+              name="Mobile"
+              vid="vi-mobile"
+              rules=""
+            >
+              <b-input-group class="input-group-merge">
+                <b-form-input
+                  id="vi-mobile"
+                  v-model="form.mobile"
+                  type="number"
+                  placeholder="Mobile"
+                  @change="handleForm"
+                />
+              </b-input-group>
+              <small class="text-danger">{{ errors[0] }}</small>
+            </validation-provider>
+          </b-form-group>
+        </b-col>
+
+        <!-- landline -->
+        <b-col cols="12">
+          <b-form-group
+            label="Landline"
+            label-for="vi-landline"
+            class=""
+          >
+            <validation-provider
+              #default="{ errors }"
+              name="Landline"
+              vid="vi-landline"
+              rules=""
+            >
+              <b-input-group class="input-group-merge">
+                <b-form-input
+                  id="vi-landline"
+                  v-model="form.landline"
+                  type="number"
+                  placeholder="Landline"
+                  @change="handleForm"
+                />
+              </b-input-group>
+              <small class="text-danger">{{ errors[0] }}</small>
+            </validation-provider>
+          </b-form-group>
+        </b-col>
+
+        <!-- Select Department -->
+        <b-col cols="12">
+          <b-form-group
+            label="Department"
+            label-for="vi-department"
+            class="required"
+          >
+            <validation-provider
+              #default="{ errors }"
+              name="Department"
+              vid="vi-department"
               rules="required"
             >
               <b-input-group class="input-group-merge">
                 <v-select
-                  v-model="form.reporting_person"
+                  v-model="form.department"
                   class="form-control p-0 border-0"
                   :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                   label="title"
@@ -83,133 +142,25 @@
           </b-form-group>
         </b-col>
 
-        <!-- Address -->
+        <!-- Designation -->
         <b-col cols="12">
           <b-form-group
-            label="Address"
-            label-for="vi-address"
-            class="required"
-          >
-            <validation-provider
-              #default="{ errors }"
-              name="Address"
-              vid="vi-address"
-              rules="required"
-            >
-              <b-input-group class="input-group-merge">
-                <b-form-input
-                  id="vi-address"
-                  v-model="form.address"
-                  type="text"
-                  placeholder="Address"
-                  @change="handleForm"
-                />
-              </b-input-group>
-              <small class="text-danger">{{ errors[0] }}</small>
-            </validation-provider>
-          </b-form-group>
-        </b-col>
-
-        <!-- State -->
-        <b-col cols="12">
-          <b-form-group
-            label="State"
-            label-for="vi-State"
-            class="required"
-          >
-            <validation-provider
-              #default="{ errors }"
-              name="State"
-              vid="vi-State"
-              rules="required"
-            >
-              <b-input-group class="input-group-merge">
-                <b-form-input
-                  id="vi-State"
-                  v-model="form.state"
-                  type="text"
-                  placeholder="State"
-                  @change="handleForm"
-                />
-              </b-input-group>
-              <small class="text-danger">{{ errors[0] }}</small>
-            </validation-provider>
-          </b-form-group>
-        </b-col>
-
-        <!-- City -->
-        <b-col cols="12">
-          <b-form-group
-            label="City"
-            label-for="vi-City"
-            class="required"
-          >
-            <validation-provider
-              #default="{ errors }"
-              name="City"
-              vid="vi-City"
-              rules="required"
-            >
-              <b-input-group class="input-group-merge">
-                <b-form-input
-                  id="vi-City"
-                  v-model="form.city"
-                  type="text"
-                  placeholder="City"
-                  @change="handleForm"
-                />
-              </b-input-group>
-              <small class="text-danger">{{ errors[0] }}</small>
-            </validation-provider>
-          </b-form-group>
-        </b-col>
-
-        <!-- zip_code -->
-        <b-col cols="12">
-          <b-form-group
-            label="Zip code"
-            label-for="vi-zip_code"
-            class="required"
-          >
-            <validation-provider
-              #default="{ errors }"
-              name="Zip code"
-              vid="vi-zip_code"
-              rules="required"
-            >
-              <b-input-group class="input-group-merge">
-                <b-form-input
-                  id="vi-zip_code"
-                  v-model="form.zip_code"
-                  type="text"
-                  placeholder="zip_code"
-                  @change="handleForm"
-                />
-              </b-input-group>
-              <small class="text-danger">{{ errors[0] }}</small>
-            </validation-provider>
-          </b-form-group>
-        </b-col>
-
-        <!-- LandLine -->
-        <b-col cols="12">
-          <b-form-group
-            label="Landline"
-            label-for="vi-Landline"
+            label="Designation"
+            label-for="vi-designation"
             class=""
           >
             <validation-provider
               #default="{ errors }"
-              name="Landline"
-              vid="vi-Landline"
+              name="Designation"
+              vid="vi-designation"
               rules=""
             >
               <b-input-group class="input-group-merge">
                 <b-form-input
-                  id="vi-Landline"
-                  v-model="form.landline"
-                  type="text"
-                  placeholder="Landline"
+                  id="vi-designation"
+                  v-model="form.designation"
+                  type="number"
+                  placeholder="Designation"
                   @change="handleForm"
                 />
               </b-input-group>
@@ -217,25 +168,91 @@
             </validation-provider>
           </b-form-group>
         </b-col>
-        <!-- Website -->
+
+        <!-- Select Services -->
         <b-col cols="12">
           <b-form-group
-            label="Website"
-            label-for="vi-Website"
-            class=""
+            label="Services"
+            label-for="vi-Services"
+            class="required"
           >
             <validation-provider
               #default="{ errors }"
-              name="Website"
-              vid="vi-Website"
-              rules=""
+              name="Services"
+              vid="vi-Services"
+              rules="required"
             >
               <b-input-group class="input-group-merge">
-                <b-form-input
-                  id="vi-Website"
-                  v-model="form.website"
-                  type="text"
-                  placeholder="Website"
+                <v-select
+                  v-model="form.services"
+                  class="form-control p-0 border-0"
+                  :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
+                  label="title"
+                  multiple
+                  placeholder=""
+                  :options="[]"
+                  @change="handleForm"
+                />
+              </b-input-group>
+              <small class="text-danger">{{ errors[0] }}</small>
+            </validation-provider>
+          </b-form-group>
+        </b-col>
+
+        <!-- Business Card -->
+        <b-col
+          cols="12"
+          class="p-0"
+        >
+          <b-col cols="12">
+            <b-form-group
+              label="Profile Photo"
+              label-for="vi-profile-photo"
+              :class="pic_required"
+            >
+              <validation-provider
+                #default="{ errors }"
+                name="Profile Photo"
+                vid="vi-profile-photo"
+                :rules="pic_required"
+              >
+                <b-input-group class="input-group-merge">
+                  <b-form-file
+                    id="vi-profile-photo"
+                    v-model="form.profile_pic"
+                    accept="image/*"
+                    type="file"
+                    @change="getprofile"
+                  />
+                </b-input-group>
+                <small class="text-danger">{{ errors[0] }}</small>
+              </validation-provider>
+            </b-form-group>
+          </b-col>
+        </b-col>
+
+        <!-- Select Customer_type -->
+        <b-col cols="12">
+          <b-form-group
+            label="Customer type"
+            label-for="vi-Customer_type"
+            class="required"
+          >
+            <validation-provider
+              #default="{ errors }"
+              name="Customer_type"
+              vid="vi-Customer_type"
+              rules="required"
+            >
+              <b-input-group class="input-group-merge">
+                <v-select
+                  v-model="form.customer_type"
+                  class="form-control p-0 border-0"
+                  :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
+                  label="title"
+                  multiple
+                  placeholder=""
+                  :options="[]"
                   @change="handleForm"
                 />
               </b-input-group>
@@ -254,7 +271,7 @@
 import vSelect from 'vue-select'
 import { ValidationProvider } from 'vee-validate'
 import {
-  BCard, BCol, BFormRadio, BRow, BFormGroup, BInputGroup, BCardTitle, BFormInput,
+  BCard, BCol, BRow, BFormGroup, BInputGroup, BCardTitle, BFormInput, BFormFile,
 } from 'bootstrap-vue'
 import Ripple from 'vue-ripple-directive'
 import { togglePasswordVisibility } from '@core/mixins/ui/forms'
@@ -265,7 +282,7 @@ export default {
   components: {
     vSelect,
     BFormInput,
-    BFormRadio,
+    BFormFile,
     BCardTitle,
     BRow,
     ValidationProvider,
@@ -310,12 +327,11 @@ export default {
   },
   methods: {
     handleForm() {
-      if (this.form.company_individual === '1') {
-        this.form.company_individual_select = 'Select Company'
-      } else {
-        this.form.company_individual_select = 'Select Individual'
-      }
       this.$emit('getCreateUser', this.form)
+    },
+    getprofile(event) {
+      if (event.target.files.length > 0) this.form.profile_photo = URL.createObjectURL(event.target.files[0])
+      else this.form.profile_photo = 'https://staging-lr.yugtia.com/assets/images/users/1.jpg'
     },
   },
 }
