@@ -1,13 +1,13 @@
 <template>
   <div>
-    <div class="d-flex justify-content-between mb-1">
-      <b-button
+    <div class="d-flex justify-content-end mb-1">
+      <!-- <b-button
         v-ripple.400="'rgba(113, 102, 240, 0.15)'"
         v-b-toggle.collapse-1
         variant="outline-primary"
       >
         Filters
-      </b-button>
+      </b-button> -->
       <b-button
         variant="primary"
         @click="redirectToCreate"

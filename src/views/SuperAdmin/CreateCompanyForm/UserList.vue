@@ -110,7 +110,7 @@ export default {
     }
   },
   mounted() {
-    store.dispatch('CompanyuserManage/getUsers').then(response => {
+    store.dispatch('companyStore/getUserList').then(response => {
       if (response.data.code === '200') {
         this.items = response.data.data.data
       }

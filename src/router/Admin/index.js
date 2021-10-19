@@ -19,7 +19,7 @@ const routes = [
     name: 'admin/user-type-permission-settings',
     component: () => import('@/views/ManageUsersPermissions/UserTypePermissions.vue'),
     meta: {
-      key: 500,
+      key: '7004',
       pageTitle: 'Permission Settings',
       breadcrumb: [
         {
@@ -34,7 +34,7 @@ const routes = [
     name: 'admin/user-permission-settings',
     component: () => import('@/views/ManageUsersPermissions/UserPermissions.vue'),
     meta: {
-      key: 500,
+      key: '7016',
       pageTitle: 'Permission Settings',
       breadcrumb: [
         {
@@ -49,7 +49,7 @@ const routes = [
     name: 'create-users',
     component: () => import('@/views/Admin/CreateUserForm/CreateUsers.vue'),
     meta: {
-      key: 500,
+      key: '2000',
       pageTitle: 'Create Users',
       breadcrumb: [
         {
@@ -64,7 +64,7 @@ const routes = [
     name: 'admin-list',
     component: () => import('@/views/Admin/CreateUserForm/UsersList.vue'),
     meta: {
-      key: 500,
+      key: '2002',
       pageTitle: 'Admin List',
       breadcrumb: [
         {
@@ -83,7 +83,7 @@ const routes = [
     // },
     meta: {
       requiresAuth: true,
-      key: 500,
+      key: '7009',
       pageTitle: 'Create Company',
       breadcrumb: [
         {

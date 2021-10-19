@@ -1,29 +1,12 @@
 <template>
   <validation-observer
-    ref="createUser"
+    ref="createLead"
   >
-    <b-form @submit.prevent="createUser">
+    <b-form @submit.prevent="createLead">
       <b-row>
-        <user-details />
-        <contact-details />
-        <!-- <login-details
-          :req="req"
-          :editdata="form"
-          @getCreateUser="getFor"
-        /> -->
+        <user-details @getCreateLead="getFor" />
+        <contact-details @getCreateLead="getFor" />
 
-        <!-- <user-details
-          :req="req"
-          :editdata="form"
-          @getCreateUser="getFor"
-        /> -->
-
-        <!-- <report-to
-          :req="req"
-          :editdata="form"
-          @getCreateUser="getFor"
-        /> -->
-        <!-- reset and submit -->
         <b-col
           cols="12"
           class="text-center"
@@ -83,24 +66,20 @@ export default {
     return {
       req: true,
       isVerticalMenuCollapsed: this.$store.state.verticalMenu.isVerticalMenuCollapsed,
+      images: [],
       form: {
-        assigned_service: '',
-        username: '',
-        password: '',
-        confirmPassword: '',
-        email: '',
-        user_type: '',
-        mobile: '',
-        status: '',
-        address1: '',
-        address2: '',
-        firstname: '',
-        lastname: '',
-        city: '',
-        zip: '',
-        state: '',
-        profile_photo: 'https://staging-lr.yugtia.com/assets/images/users/1.jpg',
-
+        lead_generation_type: '',
+        vendor_id: '',
+        vendor_name: '',
+        landline: '',
+        website: '',
+        customer_type_id: '',
+        address: '',
+        address_line_2: '',
+        landmark: '',
+        latitude: '',
+        longitude: '',
+        contact_data: '',
       },
 
     }
@@ -129,7 +108,7 @@ export default {
     this.$store.commit('verticalMenu/UPDATE_VERTICAL_MENU_COLLAPSED', true)
   },
   methods: {
-    getFor(value, name, type, remove) {
+    getFor(value, name, type, remove, index) {
       if (!name) {
         Object.assign(this.form, value)
       } else if (type === 'checkbox') {
@@ -138,58 +117,45 @@ export default {
         } else {
           this.form[name].splice(this.form[name].indexOf(remove), 1)
         }
+      } else if (name === 'images') {
+        if (remove) {
+          this.images.splice(this.images.indexOf(remove), 1)
+        } else {
+          this.images[index] = value
+        }
       } else {
         this.form[name] = value
       }
-      console.log(this.form.select_chec)
     },
 
-    createUser() {
-      this.$refs.createUser.validate().then(success => {
-        if (success) {
-          const data = this.form
-          if (data.companyuserid === '0') {
-            store.dispatch('CompanyuserManage/createUser', data).then(response => {
-              if (response.data.code === '200') {
-                this.$toast({
-                  component: ToastificationContent,
-                  position: 'top-right',
-                  props: {
-                    title: `${response.data.msg.replace('message.', '')}`,
-                    icon: 'Success',
-                    variant: 'success',
-                    text: '',
-                  },
-                })
-                this.$router.push('/company/users-list')
-              }
-            })
-          } else {
-            store.dispatch('CompanyuserManage/updateUser', this.form).then(response => {
-              if (response.data.code === '200') {
-                this.$toast({
-                  component: ToastificationContent,
-                  position: 'top-right',
-                  props: {
-                    title: `${response.data.msg.replace('message.', '')}`,
-                    icon: 'Success',
-                    variant: 'success',
-                    text: '',
-                  },
-                })
-                this.$router.push('/company/users-list')
-              }
-            })
-          }
+    createLead() {
+      // this.$refs.createLead.validate().then(success => {
+      // if (success) {
+      const data = this.form
+      store.dispatch('ManageLeads/createLead', data).then(response => {
+        if (response.data.code === '200') {
+          this.$toast({
+            component: ToastificationContent,
+            position: 'top-right',
+            props: {
+              title: `${response.data.msg.replace('message.', '')}`,
+              icon: 'Success',
+              variant: 'success',
+              text: '',
+            },
+          })
+          this.$router.push('/leads-list')
         }
       })
+      // }
+      // })
     },
   },
 }
 </script>
 <style lang="scss">
 @import '@core/scss/vue/libs/vue-select.scss';
-
+@import '@core/scss/vue/libs/vue-autosuggest.scss';
 #profile_photo_preview{
     text-align: center;
 }

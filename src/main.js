@@ -2,6 +2,7 @@ import Vue from 'vue'
 import { ToastPlugin, ModalPlugin } from 'bootstrap-vue'
 import VueCompositionAPI from '@vue/composition-api'
 
+import * as VueGoogleMaps from 'vue2-google-maps'
 import router from './router'
 import store from './store'
 import App from './App.vue'
@@ -14,6 +15,14 @@ import '@/libs/portal-vue'
 import '@/libs/toastification'
 
 import constants from './constants'
+
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyD4_iLwWVQzAAjeMxccKcezee72_x33swY',
+    libraries: 'places',
+  },
+  installComponents: true,
+})
 
 // BSV Plugin Registration
 Vue.use(ToastPlugin)

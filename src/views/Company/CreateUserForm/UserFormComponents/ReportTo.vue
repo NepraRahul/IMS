@@ -7,7 +7,7 @@
       </b-card-title>
       <b-row>
         <!-- Report To -->
-        <b-col cols="12">
+        <!-- <b-col cols="12">
           <b-form-group
             label="Report To"
             label-for="vi-report-to"
@@ -33,10 +33,10 @@
               <small class="text-danger">{{ errors[0] }}</small>
             </validation-provider>
           </b-form-group>
-        </b-col>
+        </b-col> -->
 
         <!-- Reporting Person -->
-        <b-col cols="12">
+        <!-- <b-col cols="12">
           <b-form-group
             label="Reporting Person"
             label-for="vi-reporting-person"
@@ -62,7 +62,7 @@
               <small class="text-danger">{{ errors[0] }}</small>
             </validation-provider>
           </b-form-group>
-        </b-col>
+        </b-col> -->
 
         <!-- Status -->
         <b-col cols="12">

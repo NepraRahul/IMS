@@ -28,7 +28,7 @@ export const getHomeRouteForLoggedInUser = userRole => {
 }
 
 export const getCompanyLoggedInUser = userRole => {
-  if (userRole === constants.USER_TYPE_USER) return '/company/users-list'
+  if (userRole === constants.USER_TYPE_USER) return '/user-management/company-user/list'
   if (userRole === 'client') return { name: 'access-control' }
   return { name: 'auth-login' }
 }

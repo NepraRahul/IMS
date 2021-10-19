@@ -11,6 +11,7 @@ import userPermission from '../views/ManageUsersPermissions/userPermission'
 import userManage from '../views/Admin/CreateUserForm/UserManage'
 import CompanyuserManage from '../views/Company/CreateUserForm/UserManage'
 import CompanyPermission from '../views/Company/ManageUsersPermissions/userPermission'
+import ManageLeads from '../views/Company/Leads/manageLeads'
 
 Vue.use(Vuex)
 
@@ -25,6 +26,7 @@ export default new Vuex.Store({
     userManage,
     CompanyuserManage,
     CompanyPermission,
+    ManageLeads,
   },
   strict: process.env.DEV,
 })

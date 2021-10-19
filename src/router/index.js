@@ -36,16 +36,16 @@ const router = new VueRouter({
     {
       path: '/login',
       name: 'login',
-      component: () => import('@/views/Login.vue'),
+      component: () => import('@/views/Company/Login.vue'),
       meta: {
         requiresAuth: false,
         layout: 'full',
       },
     },
     {
-      path: '/user-login',
-      name: 'user-login',
-      component: () => import('@/views/Company/Login.vue'),
+      path: '/login/admin',
+      name: 'login-admin',
+      component: () => import('@/views/Login.vue'),
       meta: {
         requiresAuth: false,
         layout: 'full',
@@ -106,9 +106,9 @@ const router = new VueRouter({
 function isLoggedIn() {
   return localStorage.getItem('accessToken')
 }
-/* function userType() {
+function userType() {
   return localStorage.getItem('userData').user_type
-} */
+}
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
@@ -123,10 +123,10 @@ router.beforeEach((to, from, next) => {
   } else if (!to.matched.some(record => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
-    if (isLoggedIn()) {
+    if (isLoggedIn() && userType() === '1') {
       router.push({ path: '/master-company-management/company/list' })
-    } else if (isLoggedIn()) {
-      router.push({ path: '/admin/dashboard' })
+    } else if (isLoggedIn() && userType() === '0') {
+      router.push({ path: '/user-management/company-user/list' })
     } else {
       next()
     }

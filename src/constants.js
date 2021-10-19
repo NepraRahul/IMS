@@ -1,7 +1,7 @@
 export default Object.freeze({
   USER_TYPE_ADMIN: '1',
-  USER_TYPE_SUPER_ADMIN: '10',
-  USER_TYPE_USER: '1',
+  USER_TYPE_SUPER_ADMIN: '1',
+  USER_TYPE_USER: '0',
   USER_STATUS_ACTIVE: 'A',
   USER_STATUS_INACTIVE: 'I',
   SUCCESS: '200',

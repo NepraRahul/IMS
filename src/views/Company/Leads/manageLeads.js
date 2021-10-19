@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import routes from '@/router/superAdmin'
+import axiosComapny from '../../../utils/axiosCompany'
 import axios from '../../../utils/axios'
 
 export default {
@@ -14,58 +13,50 @@ export default {
     },
   },
   actions: {
-    getCompanyList({ commit }) {
+    getVendors(cts, payload) {
       return new Promise((resolve, reject) => {
-        axios
-          .post('master-admin/company/list')
-          .then(response => {
-            resolve(response)
-            commit('setUser', response)
-          })
-          .catch(error => reject(error))
-      })
-    },
-    getCompanybyId(ctx, payload) {
-      const { company_id } = payload
-      return new Promise((resolve, reject) => {
-        axios
-          .post('master-admin/company/getById', { company_id })
+        axiosComapny
+          .post('/lead-generate/auto-complate-vendor-list', payload)
           .then(response => {
             resolve(response)
           })
           .catch(error => reject(error))
       })
     },
-    createCompany(ctx, payload) {
-      const { data } = payload
+    getDepartments() {
       return new Promise((resolve, reject) => {
         axios
-          .post('master-admin/company/create', data)
+          .get('/master-admin/department-list')
           .then(response => {
             resolve(response)
           })
           .catch(error => reject(error))
       })
     },
-    updataCompany(ctx, payload) {
+    getCustomersTypeList() {
       return new Promise((resolve, reject) => {
         axios
-          .post('master-admin/company/update', payload.data)
+          .post('/master-admin/customer-type-list')
           .then(response => {
             resolve(response)
           })
           .catch(error => reject(error))
       })
     },
-    getUserList() {
+    createLead(ctx, payload) {
       return new Promise((resolve, reject) => {
-        axios
-          .post('admin/user/list')
+        axiosComapny
+          .post('/lead-generate/save-lead-generation', payload, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          })
           .then(response => {
             resolve(response)
           })
           .catch(error => reject(error))
       })
     },
+
   },
 }

@@ -31,7 +31,7 @@ const routes = [
     },
     meta: {
       requiresAuth: true,
-      key: '2000',
+      key: '1002',
       pageTitle: 'Company Create User',
       breadcrumb: [
         {
@@ -50,7 +50,7 @@ const routes = [
     },
     meta: {
       requiresAuth: true,
-      key: '1001',
+      key: '1003',
       pageTitle: 'Company User Edit',
       breadcrumb: [
         {
@@ -80,7 +80,7 @@ const routes = [
     name: 'company/user-permission-settings',
     component: () => import('@/views/Company/ManageUsersPermissions/UserPermissions.vue'),
     meta: {
-      key: 1004,
+      key: '1004',
       pageTitle: 'Permission Settings',
       breadcrumb: [
         {
