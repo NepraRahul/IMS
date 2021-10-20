@@ -129,26 +129,26 @@ export default {
     },
 
     createLead() {
-      // this.$refs.createLead.validate().then(success => {
-      // if (success) {
-      const data = this.form
-      store.dispatch('ManageLeads/createLead', data).then(response => {
-        if (response.data.code === '200') {
-          this.$toast({
-            component: ToastificationContent,
-            position: 'top-right',
-            props: {
-              title: `${response.data.msg.replace('message.', '')}`,
-              icon: 'Success',
-              variant: 'success',
-              text: '',
-            },
+      this.$refs.createLead.validate().then(success => {
+        if (success) {
+          const data = this.form
+          store.dispatch('ManageLeads/createLead', data).then(response => {
+            if (response.data.code === '200') {
+              this.$toast({
+                component: ToastificationContent,
+                position: 'top-right',
+                props: {
+                  title: `${response.data.msg.replace('message.', '')}`,
+                  icon: 'Success',
+                  variant: 'success',
+                  text: '',
+                },
+              })
+              this.$router.push('/leads-list')
+            }
           })
-          this.$router.push('/leads-list')
         }
       })
-      // }
-      // })
     },
   },
 }

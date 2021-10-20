@@ -82,6 +82,7 @@
                   <vue-autosuggest
                     ref="company_select"
                     v-model="form.vendor_name"
+                    :class="errors[0] ? 'border-red-selector' : ''"
                     :disabled="company_select_disable"
                     :suggestions="suggestions"
                     :input-props="{id: 'autosuggest__input_ajax',
@@ -92,7 +93,6 @@
                     @input="fetchResults"
                   />
                 </b-input-group>
-                <small class="text-danger">{{ errors[0] }}</small>
               </validation-provider>
             </b-form-group>
           </b-col>
@@ -112,6 +112,7 @@
                 <b-input-group class="input-group-merge">
                   <v-select
                     v-model="form.customer_type_id"
+                    :class="errors[0] ? 'border-red-vselect' : ''"
                     class="form-control p-0 border-0"
                     :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                     label="customer_type"
@@ -121,7 +122,6 @@
                     @change="handleForm"
                   />
                 </b-input-group>
-                <small class="text-danger">{{ errors[0] }}</small>
               </validation-provider>
             </b-form-group>
           </b-col>
@@ -141,12 +141,12 @@
               >
                 <b-input-group class="input-group-merge">
                   <GmapAutocomplete
+                    :class="errors[0] ? 'border-red' : ''"
                     class="form-control"
                     @place_changed="setPlace"
                   />
 
                 </b-input-group>
-                <small class="text-danger">{{ errors[0] }}</small>
               </validation-provider>
             </b-form-group>
           </b-col>
@@ -169,12 +169,12 @@
                     <b-form-input
                       id="vi-Country"
                       v-model="form.country"
+                      :class="errors[0] ? 'border-red' : ''"
                       type="text"
                       placeholder="Country"
                       @change="handleForm"
                     />
                   </b-input-group>
-                  <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
               </b-form-group>
             </b-col>
@@ -195,12 +195,12 @@
                     <b-form-input
                       id="vi-State"
                       v-model="form.state"
+                      :class="errors[0] ? 'border-red' : ''"
                       type="text"
                       placeholder="State"
                       @change="handleForm"
                     />
                   </b-input-group>
-                  <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
               </b-form-group>
             </b-col>
@@ -222,12 +222,12 @@
                     <b-form-input
                       id="vi-City"
                       v-model="form.city"
+                      :class="errors[0] ? 'border-red' : ''"
                       type="text"
                       placeholder="City"
                       @change="handleForm"
                     />
                   </b-input-group>
-                  <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
               </b-form-group>
             </b-col>
@@ -250,11 +250,11 @@
                       id="vi-zipcode"
                       v-model="form.zipcode"
                       type="text"
+                      :class="errors[0] ? 'border-red' : ''"
                       placeholder="Zip Code"
                       @change="handleForm"
                     />
                   </b-input-group>
-                  <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
               </b-form-group>
             </b-col>
@@ -276,11 +276,11 @@
                       id="vi-Landline"
                       v-model="form.landline"
                       type="text"
+                      :class="errors[0] ? 'border-red' : ''"
                       placeholder="Landline"
                       @change="handleForm"
                     />
                   </b-input-group>
-                  <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
               </b-form-group>
             </b-col>
@@ -303,12 +303,12 @@
                   <b-form-input
                     id="vi-Website"
                     v-model="form.website"
+                    :class="errors[0] ? 'border-red' : ''"
                     type="text"
                     placeholder="Website"
                     @change="handleForm"
                   />
                 </b-input-group>
-                <small class="text-danger">{{ errors[0] }}</small>
               </validation-provider>
             </b-form-group>
           </b-col>
@@ -327,6 +327,38 @@
               @click="center = m.position"
             />
           </GmapMap>
+
+          <!-- Select Services -->
+          <b-col cols="12">
+            <b-form-group
+              label="Services"
+              label-for="vi-Services"
+              class="pt-2 required"
+            >
+              <validation-provider
+                #default="{ errors }"
+                name="Services"
+                vid="vi-Services"
+                rules="required"
+              >
+                <b-input-group class="input-group-merge">
+                  <v-select
+                    v-model="form.services"
+                    class="form-control p-0 border-0"
+                    :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
+                    label="service_name"
+                    :reduce="s => s.id"
+                    multiple
+                    placeholder=""
+                    :options="services"
+                    @change="handleForm"
+                  />
+                </b-input-group>
+                <small class="text-danger">{{ errors[0] }}</small>
+              </validation-provider>
+            </b-form-group>
+          </b-col>
+
         </b-col>
       </b-row>
     </b-card>

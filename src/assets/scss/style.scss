@@ -69,3 +69,17 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
     padding: 0 5px 0 5px;
     color: red;
   }
+
+  .border-red {
+    border-color: red;
+  }
+  .border-red-vselect .vs__dropdown-toggle {
+    border-color: red !important;
+  }
+  .border-red-selector input {
+    border-color: red;
+  }
+
+  .vs__dropdown-menu{
+    top: 100% !important;
+  }

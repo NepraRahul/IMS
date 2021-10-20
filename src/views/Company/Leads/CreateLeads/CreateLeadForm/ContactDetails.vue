@@ -18,15 +18,14 @@
           <p>Contact </p>
           <b-button
             v-ripple.400="'rgba(234, 84, 85, 0.15)'"
-            variant="outline-danger"
-            class="mt-0 mt-md-2"
+            variant="outline-danger border-0"
+            class="mt-0 mt-md-2 px-1"
             @click="removeItem(index)"
           >
             <feather-icon
               icon="XIcon"
               class="mr-25"
             />
-            <span>Delete</span>
           </b-button>
         </b-col>
         <!-- Name -->
@@ -39,19 +38,19 @@
             <validation-provider
               #default="{ errors }"
               name="Name"
-              vid="vi-Name"
+              :vid="'vi-Name'+index"
               rules="required"
             >
               <b-input-group class="input-group-merge">
                 <b-form-input
-                  id="vi-Name"
+                  :id="'vi-Name'+index"
                   v-model="form.contact_data[index].name"
+                  :class="errors[0] ? 'border-red' : ''"
                   type="text"
                   placeholder="Name"
                   @change="handleForm"
                 />
               </b-input-group>
-              <small class="text-danger">{{ errors[0] }}</small>
             </validation-provider>
           </b-form-group>
         </b-col>
@@ -66,19 +65,19 @@
             <validation-provider
               #default="{ errors }"
               name="Email"
-              vid="vi-email"
+              :vid="'vi-email'+index"
               rules="email"
             >
               <b-input-group class="input-group-merge">
                 <b-form-input
-                  id="vi-email"
+                  :id="'vi-email'+index"
                   v-model="form.contact_data[index].email"
+                  :class="errors[0] ? 'border-red' : ''"
                   type="text"
                   placeholder="email"
                   @change="handleForm"
                 />
               </b-input-group>
-              <small class="text-danger">{{ errors[0] }}</small>
             </validation-provider>
           </b-form-group>
         </b-col>
@@ -92,19 +91,19 @@
             <validation-provider
               #default="{ errors }"
               name="Mobile"
-              vid="vi-mobile"
+              :vid="'vi-mobile'+index"
               rules=""
             >
               <b-input-group class="input-group-merge">
                 <b-form-input
-                  id="vi-mobile"
+                  :id="'vi-mobile'+index"
                   v-model="form.contact_data[index].mobile"
+                  :class="errors[0] ? 'border-red' : ''"
                   type="number"
                   placeholder="Mobile"
                   @change="handleForm"
                 />
               </b-input-group>
-              <small class="text-danger">{{ errors[0] }}</small>
             </validation-provider>
           </b-form-group>
         </b-col>
@@ -119,19 +118,19 @@
             <validation-provider
               #default="{ errors }"
               name="Landline"
-              vid="vi-landline"
+              :vid="'vi-landline'+index"
               rules=""
             >
               <b-input-group class="input-group-merge">
                 <b-form-input
-                  id="vi-landline"
+                  :id="'vi-landline'+index"
                   v-model="form.contact_data[index].landline"
+                  :class="errors[0] ? 'border-red' : ''"
                   type="number"
                   placeholder="Landline"
                   @change="handleForm"
                 />
               </b-input-group>
-              <small class="text-danger">{{ errors[0] }}</small>
             </validation-provider>
           </b-form-group>
         </b-col>
@@ -146,12 +145,13 @@
             <validation-provider
               #default="{ errors }"
               name="Department"
-              vid="vi-department"
+              :vid="'vi-department'+index"
               rules="required"
             >
               <b-input-group class="input-group-merge">
                 <v-select
                   v-model="form.contact_data[index].department"
+                  :class="errors[0] ? 'border-red-vselect' : ''"
                   class="form-control p-0 border-0"
                   :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                   label="department_name"
@@ -161,7 +161,6 @@
                   @change="handleForm"
                 />
               </b-input-group>
-              <small class="text-danger">{{ errors[0] }}</small>
             </validation-provider>
           </b-form-group>
         </b-col>
@@ -183,12 +182,12 @@
                 <b-form-input
                   id="vi-designation"
                   v-model="form.contact_data[index].designation"
+                  :class="errors[0] ? 'border-red' : ''"
                   type="text"
                   placeholder="Designation"
                   @change="handleForm"
                 />
               </b-input-group>
-              <small class="text-danger">{{ errors[0] }}</small>
             </validation-provider>
           </b-form-group>
         </b-col>
@@ -210,6 +209,7 @@
                 <v-select
                   v-model="form.contact_data[index].services"
                   class="form-control p-0 border-0"
+                  :class="errors[0] ? 'border-red-vselect' : ''"
                   :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                   label="service_name"
                   :reduce="s => s.id"
@@ -219,7 +219,6 @@
                   @change="handleForm"
                 />
               </b-input-group>
-              <small class="text-danger">{{ errors[0] }}</small>
             </validation-provider>
           </b-form-group>
         </b-col>
@@ -245,6 +244,7 @@
                   <b-form-file
                     :id="'vi-business-card'+index"
                     v-model="form.contact_data[index].card"
+                    :class="errors[0] ? 'border-red' : ''"
                     accept="image/*"
                     type="file"
                     @change="getprofile($event, index)"
@@ -263,7 +263,9 @@
             </b-form-group>
           </b-col>
         </b-col>
-
+        <b-col>
+          <hr>
+        </b-col>
       </b-row>
       <b-button
         v-ripple.400="'rgba(255, 255, 255, 0.15)'"
@@ -367,9 +369,10 @@ export default {
     },
     getprofile(event, index) {
       if (event.target.files.length > 0) {
+        console.log(event)
         // eslint-disable-next-line prefer-destructuring
         this.business_card_photo[index] = event.target.files[0]
-        console.log(this.business_card_photo[index])
+        // console.log(this.business_card_photo[index])
         this.form.contact_data[index].card = URL.createObjectURL(event.target.files[0])
         this.$emit('getCreateLead', this.business_card_photo[index], 'images', '', '', index)
       } else {
